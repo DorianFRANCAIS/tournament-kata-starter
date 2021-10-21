@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\Tournament;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,12 +28,15 @@ class TournamentController extends AbstractController
         $parametersAsArray = json_decode($request->getContent(), true);
         $uuid = Uuid::v4();
 
-        $tournament = new Tournament($uuid, $parametersAsArray["name"]);
-        $this->service->saveTournament($tournament);
-
-        return $this->json([
-            'id' => $uuid,
-        ]);
+        if(!isset($parametersAsArray["name"])){
+            return new JsonResponse($output, 400);
+        }else{
+            $tournament = new Tournament($uuid, $parametersAsArray["name"]);
+            $this->service->saveTournament($tournament);
+            return $this->json([
+                'id' => $uuid,
+            ]);
+        }
     }
 
     /**

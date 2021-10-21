@@ -51,4 +51,18 @@ class TournamentTest extends ApiTestCase
 
         $this->assertResponseStatusCodeSame(404);
     }
+
+    public function testTournamentCreationErrorEmptyName(): void
+    {
+        $client = static::createClient();
+        $client->request('POST', '/api/tournaments', [
+            'headers' => [
+                'Content-Type: application/json',
+                'Accept: application/json',
+            ],
+            'body' => json_encode([])
+        ]);
+
+        $this->assertResponseStatusCodeSame(400);
+    }
 }
