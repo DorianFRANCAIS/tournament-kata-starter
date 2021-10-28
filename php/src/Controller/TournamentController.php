@@ -47,7 +47,7 @@ class TournamentController extends AbstractController
     {
         $tournament = $this->service->getTournament($id);
         if (null == $tournament) {
-            throw $this->createNotFoundException();
+            return new JsonResponse(['errorMessage' => 'Le tournoi n\'existe pas'], 404);
         }
         return $this->json($tournament);
     }

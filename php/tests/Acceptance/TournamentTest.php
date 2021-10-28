@@ -51,6 +51,7 @@ class TournamentTest extends ApiTestCase
         static::createClient()->request('GET', '/api/tournaments/123');
 
         $this->assertResponseStatusCodeSame(404);
+        $this->assertJsonContains(['errorMessage' => 'Le tournoi n\'existe pas']);
     }
 
     public function testTournamentCreationErrorEmptyName(): void
@@ -67,4 +68,5 @@ class TournamentTest extends ApiTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
         $this->assertJsonContains(['errorMessage' => 'Parametre name non renseigne']);
     }
+
 }
