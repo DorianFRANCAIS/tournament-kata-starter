@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\TournamentService;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TournamentController extends AbstractController
 {
@@ -28,8 +29,8 @@ class TournamentController extends AbstractController
         $parametersAsArray = json_decode($request->getContent(), true);
         $uuid = Uuid::v4();
 
-        if(!isset($parametersAsArray["name"])){
-            return new JsonResponse($output, 400);
+        if(!isset($parametersAsArray["name"]) || $parametersAsArray["name"] == ""){
+            return new JsonResponse(['errorMessage' => 'Paramètre name non renseigné'], 400);
         }else{
             $tournament = new Tournament($uuid, $parametersAsArray["name"]);
             $this->service->saveTournament($tournament);
