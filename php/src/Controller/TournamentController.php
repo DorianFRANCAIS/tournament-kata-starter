@@ -30,7 +30,7 @@ class TournamentController extends AbstractController
         $uuid = Uuid::v4();
 
         if(!isset($parametersAsArray["name"]) || $parametersAsArray["name"] == ""){
-            return new JsonResponse(['errorMessage' => 'Paramètre name non renseigné'], 400);
+            return new JsonResponse(['errorMessage' => 'Parametre name non renseigne'], 400);
         }else{
             $tournament = new Tournament($uuid, $parametersAsArray["name"]);
             $this->service->saveTournament($tournament);

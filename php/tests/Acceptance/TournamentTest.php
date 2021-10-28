@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Tests\Acceptance;
+use Symfony\Component\HttpFoundation\Response;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 
@@ -63,6 +64,7 @@ class TournamentTest extends ApiTestCase
             'body' => json_encode([])
         ]);
 
-        $this->assertResponseStatusCodeSame(400);
+        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $this->assertJsonContains(['errorMessage' => 'Parametre name non renseigne']);
     }
 }
