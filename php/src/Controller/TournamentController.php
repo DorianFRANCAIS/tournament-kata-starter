@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\Tournament;
+use App\Model\Participant;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,5 +51,28 @@ class TournamentController extends AbstractController
             return new JsonResponse(['errorMessage' => 'Le tournoi n\'existe pas'], 404);
         }
         return $this->json($tournament);
+    }
+
+     /**
+     * @Route("/api/tournaments/{tournamentId}/participants", name="add_participant_to_tournament", methods={"POST"})
+     */
+    public function addParticipantToTournament(Request $request, string $tournamentId): Response
+    {
+        $parametersAsArray = json_decode($request->getContent(), true);
+        $uuid = Uuid::v4();
+
+        $tournament = $this->service->getTournament($tournamentId);
+        if (null == $tournament) {
+            return new JsonResponse(['errorMessage' => 'Le tournoi n\'existe pas'], 404);
+        }else{
+            if(!isset($parametersAsArray["name"]) || $parametersAsArray["name"] == "" || !isset($parametersAsArray["elo"]) || $parametersAsArray["elo"] == ""){
+                return new JsonResponse(['errorMessage' => 'le nom ou l\'elo sont incorrects'], 400);
+            }else{
+                if($tournament)
+                $participant = new Participant($uuid,$parametersAsArray["name"],$parametersAsArray["elo"]);
+                $tournament->addParticipant($participant);
+                return new JsonResponse(['id' => $participant->id], 201);
+            }
+        }       
     }
 }
