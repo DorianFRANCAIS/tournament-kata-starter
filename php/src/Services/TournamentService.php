@@ -1,22 +1,23 @@
 <?php
 namespace App\Services;
 
-use App\Model\Tournament;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Entity\Tournament;
+use App\Repository\TournamentRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 class TournamentService {
-    private SessionInterface $session;
 
-    public function __construct(SessionInterface $session) {
-        $this->session = $session;
+    private TournamentRepository $tournamentRepository;
+
+    public function __construct(TournamentRepository $tournamentRepository) {
+        $this->tournamentRepository = $tournamentRepository;
     }
 
     public function getTournament(string $id) : ?Tournament {
-        return $this->session->get($id);
+        return $this->tournamentRepository->getTournament($id);
     }
 
     public function saveTournament(Tournament $tournament) {
-        $this->session->set($tournament->id, $tournament);
-        $this->session->save();
+        $this->tournamentRepository->saveTournament($tournament);
     }
 }
