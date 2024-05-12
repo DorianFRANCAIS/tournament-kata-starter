@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "dad21e4f-0172-4922-bebe-ca55c539449d",
+		"name": "Archi_Tournament",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Creation Tournoi - OK",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\" : \"toto\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/tournaments",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tournaments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creation Tournoi - KO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\" : \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/tournaments",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tournaments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recuperation Tournoi - OK",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\" : \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/tournaments/fe3ee4f3-cf7b-4f8d-a6e9-36e1e3d248cc",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tournaments",
+						"fe3ee4f3-cf7b-4f8d-a6e9-36e1e3d248cc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recuperation Tournoi - KO",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\" : \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/tournaments/abc",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tournaments",
+						"abc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ajout Participant - OK",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Corentin\",\r\n    \"elo\" : 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/tournaments/:idTournoi/participants",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tournaments",
+						":idTournoi",
+						"participants"
+					],
+					"variable": [
+						{
+							"key": "idTournoi",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ajout Participant - KO Tournoi non trouvé",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Corentin\",\r\n    \"elo\" : 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/tournaments/:idTournoi/participants",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tournaments",
+						":idTournoi",
+						"participants"
+					],
+					"variable": [
+						{
+							"key": "idTournoi",
+							"value": "abc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ajout Participant - KO Paramètres incorrects",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/tournaments/:idTournoi/participants",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"tournaments",
+						":idTournoi",
+						"participants"
+					],
+					"variable": [
+						{
+							"key": "idTournoi",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
